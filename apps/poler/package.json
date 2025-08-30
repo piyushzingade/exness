@@ -4,24 +4,31 @@
   "type": "module",
   "private": true,
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "@types/pg": "^8.15.5",
+    "drizzle-kit": "^0.31.4",
+    "tsx": "^4.20.5"
   },
   "scripts": {
     "build": "tsc -b",
-    "start": "node ./dist/index.js",
-    "dev": "bun run --hot src/index.ts"
+    "start": "node ./dist/index.j",
+    "dev": "bun run --hot src/index.ts",
+    "db:seed": "bun run --hot src/db/seed/seed-db.ts",
+    "db:start": "docker compose up -d",
+    "db:stop": "docker compose stop"
   },
   "peerDependencies": {
     "typescript": "^5"
   },
   "dependencies": {
-    "@types/cors": "^2.8.19",
     "@repo/types": "workspace:*",
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "@types/ws": "^8.18.1",
     "cors": "^2.8.5",
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
+    "pg": "^8.16.3",
     "redis": "^5.8.2",
     "ws": "^8.18.3"
   }
