@@ -15,7 +15,13 @@ export async function initRedis() {
     isConnected = true;
 
     await subscriberMessage.pSubscribe("*", (channel, message) => {
-        // console.log(`Received message from ${channel}: ${message}`);
-        const parsedMessage = JSON.parse(message);
+        let parsedMessage: any;
+        try {
+            parsedMessage = JSON.parse(message);
+        } catch {
+            parsedMessage = message; // fallback if it's not JSON
+        }
+
+        // console.log(`Received from ${channel}:`, parsedMessage);
     });
 }
