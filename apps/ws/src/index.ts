@@ -1,14 +1,31 @@
-import { WebSocketServer } from "ws";
+import WebSocket, { WebSocketServer } from "ws";
+import { createClient, type RedisClientType } from "redis";
+
+const wss = new WebSocketServer({ port: 3003 });
+const clients: Set<WebSocket> = new Set();
 
 
-export const wss = new WebSocketServer({ port: 3003 });
+
 
 wss.on("connection", (ws) => {
-    console.log("New client connected");
-    ws.on("message", (message) => {
-        console.log(`Received message: ${message}`);
+    clients.add(ws);
+
+    ws.on("message", (raw) => {
+        let msg: any;
+        try {
+            msg = JSON.parse(raw.toString());
+        } catch {
+            return;
+        }
+        if (msg.type === "hi") {
+            ws.send(JSON.stringify({ type: "hello" }));
+        }
     });
+
     ws.on("close", () => {
-        console.log("Client disconnected");
+        clients.delete(ws);
     });
-}); 
+});
+
+
+
