@@ -1,3 +1,4 @@
+
 import { getBuyPrice, getSellPrice, type binanceWebSockerResponse } from "@repo/types/index";
 import { publisherMessage } from "../../redis-pubsub";
 import { pushToDB } from "../pushToDb/pushToDB";

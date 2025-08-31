@@ -1,3 +1,4 @@
+
 import "dotenv/config";
 import type { binanceWebSockerResponse } from "@repo/types/index";
 import { getPublisherData } from "./routes/publisher/publisher";

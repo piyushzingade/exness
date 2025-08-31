@@ -12,15 +12,15 @@ export const subscriberMessage: RedisClientType = createClient({
 wss.on("connection", (ws) => {
     clients.add(ws);
 
-    ws.on("message", (raw) => {
-        let message: any;
+    ws.on("message", (message) => {
+        let parsedMessage: any;
         try {
-            message = JSON.parse(raw.toString());
+            parsedMessage = JSON.parse(message.toString());
         } catch {
-            message = { type: raw.toString() };
+            parsedMessage = { type: message.toString() };
         }
 
-        if (message.type === "hi") {
+        if (parsedMessage.type === "hi") {
             ws.send(JSON.stringify({ type: "hello" }));
         }
     });
