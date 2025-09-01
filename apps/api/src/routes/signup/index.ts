@@ -24,7 +24,7 @@ handleSignup.post("/signup", (req, res) => {
             id: Bun.randomUUIDv7(),
             email,
             password,
-            balance: 1000
+            balance: 5000
         }
 
         users.push(newUser);

@@ -1,0 +1,63 @@
+import type { TimeInterval } from "@repo/types/index";
+import { Pool } from "pg";
+
+export const pool = new Pool({
+    connectionString: process.env.TIMESCALEDB_URL,
+});
+
+const INTERVAL_MAP: Record<TimeInterval, string> = {
+    "1s": "second",
+    "1m": "minute",
+    "3m": "3minute",
+    "5m": "5minute",
+};
+
+export const Query = async (
+    symbol: string,
+    duration: TimeInterval | undefined,
+    limit: string
+) => {
+    try {
+        const client = await pool.connect();
+        try {
+            let res;
+
+            if (duration) {
+                const interval = INTERVAL_MAP[duration];
+                if (!interval) {
+                    throw new Error(`Invalid duration: ${duration}`);
+                }
+                const tableName = `klines_${interval}`;
+
+                res = await client.query(
+                    `
+          SELECT *
+          FROM ${tableName}
+          WHERE UPPER(symbol) = UPPER($1)
+          ORDER BY bucket DESC
+          LIMIT $2;
+          `,
+                    [symbol, Number.parseInt(limit, 10)]
+                );
+            } else {
+                res = await client.query(
+                    `
+          SELECT *
+          FROM trades
+          WHERE UPPER(symbol) = UPPER($1)
+          ORDER BY event_time DESC
+          LIMIT $2;
+          `,
+                    [symbol, Number.parseInt(limit, 10)]
+                );
+            }
+
+            return res.rows;
+        } finally {
+            client.release();
+        }
+    } catch (error) {
+        console.error("Database error", error);
+        throw error;
+    }
+};

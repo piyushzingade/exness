@@ -3,6 +3,7 @@ import cors from "cors";
 import { type User } from "@repo/types/index"
 import { handleSignup } from "./routes/signup";
 import { handleSignin } from "./routes/signin";
+import { handleCandle } from "./routes/candle";
 const app = express();
 
 app.get("/", (req, res) => {
@@ -16,8 +17,7 @@ app.use(cors());
 
 app.use("/api/v1/users", handleSignup)
 app.use("/api/v1/users", handleSignin)
-
-
+app.use("/api/v1/candle", handleCandle)
 
 
 app.listen(3001, () => {

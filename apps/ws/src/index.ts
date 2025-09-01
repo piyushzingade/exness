@@ -48,7 +48,6 @@ export async function connectRedis() {
                     JSON.stringify({
                         type: "ASKS_BIDS",
                         data: {
-                            // channel,
                             message: parsedMessage,
                         },
                     }),
