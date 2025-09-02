@@ -7,7 +7,7 @@
     "@types/bun": "latest"
   },
   "exports": {
-    "./index": "./index.ts"
+    "./types": "./src/index.ts"
   },
   "peerDependencies": {
     "typescript": "^5"

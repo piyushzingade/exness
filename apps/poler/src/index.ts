@@ -1,6 +1,6 @@
 
 import "dotenv/config";
-import type { binanceWebSockerResponse } from "@repo/types/index";
+import type { binanceWebSockerResponse } from "@repo/types/types";
 import { getPublisherData } from "./routes/publisher/publisher";
 import { initRedis } from "./redis-pubsub";
 

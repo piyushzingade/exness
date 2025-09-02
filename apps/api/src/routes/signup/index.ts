@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { users } from "../..";
-import type { User } from "@repo/types/index";
+import { type User } from "@repo/types/types";
 
 
 export const handleSignup = Router();

@@ -1,11 +1,11 @@
-import type { TimeInterval } from "@repo/types/index";
+import type { KlineInterval } from "@repo/types/types";
 import { Pool } from "pg";
 
 export const pool = new Pool({
     connectionString: process.env.TIMESCALEDB_URL,
 });
 
-const INTERVAL_MAP: Record<TimeInterval, string> = {
+const INTERVAL_MAP: Record<KlineInterval, string> = {
     "1s": "second",
     "1m": "minute",
     "3m": "3minute",
@@ -14,7 +14,7 @@ const INTERVAL_MAP: Record<TimeInterval, string> = {
 
 export const Query = async (
     symbol: string,
-    duration: TimeInterval | undefined,
+    duration: KlineInterval | undefined,
     limit: string
 ) => {
     try {

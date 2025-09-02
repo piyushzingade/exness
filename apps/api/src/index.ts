@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import { type User } from "@repo/types/index"
+import type { User } from "@repo/types/types";
 import { handleSignup } from "./routes/signup";
 import { handleSignin } from "./routes/signin";
 import { handleCandle } from "./routes/candle";
@@ -17,7 +17,7 @@ app.use(cors());
 
 app.use("/api/v1/users", handleSignup)
 app.use("/api/v1/users", handleSignin)
-app.use("/api/v1/candle", handleCandle)
+app.use("/api/v1/candles", handleCandle)
 
 
 app.listen(3001, () => {

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { TimeInterval } from "@repo/types/index";
+import { KlineInterval } from "@repo/types/types";
 import { Query } from "./Query";
 
 export const handleCandle = Router();
@@ -7,7 +7,7 @@ export const handleCandle = Router();
 handleCandle.get("/", async (req, res) => {
     try {
         const symbol = req.query.symbol as string;
-        const duration = req.query.duration as TimeInterval;
+        const duration = req.query.duration as KlineInterval;
         // const startTime = req.query.startTime as string;
         // const endTime = req.query.endTime as string;
         const limit = req.query.limit as string;
