@@ -143,7 +143,7 @@ export interface PreHisChartProps {
 export interface SocketData {
     socketPusher: WebSocket | null;
     socketEngine: WebSocket | null;
-    isConnectedPusher: boolean;
+    isConnectedWs: boolean;
     // isConnectedEngine: boolean;
     sendPusherMessage?: (message: any) => void;
     tradeData: {

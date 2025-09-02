@@ -25,7 +25,7 @@ export const Query = async (
             if (duration) {
                 const interval = INTERVAL_MAP[duration];
                 if (!interval) {
-                    throw new Error(`Invalid duration: ${duration}`);
+                    throw new Error(`Invalid duration: ${duration}. Valid intervals are: ${Object.keys(INTERVAL_MAP).join(', ')}`);
                 }
                 const tableName = `klines_${interval}`;
 
@@ -34,7 +34,7 @@ export const Query = async (
           SELECT *
           FROM ${tableName}
           WHERE UPPER(symbol) = UPPER($1)
-          ORDER BY bucket DESC
+          ORDER BY bucket ASC
           LIMIT $2;
           `,
                     [symbol, Number.parseInt(limit, 10)]
