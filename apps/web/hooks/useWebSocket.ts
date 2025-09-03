@@ -113,7 +113,7 @@ export function useWebSocket(
 
                 // Auto-reconnect logic
                 if (reconnectAttemptsRef.current < maxReconnectAttempts) {
-                    const delay = Math.min(1000 * Math.pow(2, reconnectAttemptsRef.current), 30000); // Exponential backoff, max 30s
+                    const delay = Math.min(1000 * Math.pow(2, reconnectAttemptsRef.current), 30000);
                     console.log(`Attempting to reconnect in ${delay}ms... (attempt ${reconnectAttemptsRef.current + 1}/${maxReconnectAttempts})`);
 
                     reconnectTimeoutRef.current = setTimeout(() => {

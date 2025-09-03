@@ -35,7 +35,7 @@ interface OrderBookData {
     };
 }
 
-const Chart = ({
+export const Chart = ({
     symbol = 'btcusdt',
     interval = '1m',
     width = 900,
@@ -159,7 +159,7 @@ const Chart = ({
             }
         };
 
-        window.addEventListener('resize', handleResize);
+        window.addEventListener('resize', handleResize); createChart
 
         return () => {
             window.removeEventListener('resize', handleResize);
@@ -294,4 +294,3 @@ const Chart = ({
     );
 };
 
-export default Chart;

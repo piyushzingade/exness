@@ -2,18 +2,13 @@
 
 import { useState } from "react";
 import { BTC, ETH, SOL } from "../components/icons";
-import Chart from "../components/charts/chart";
+import { Chart } from "../components/charts/chart";
 
-const TradingPage = () => {
+export const Home = () => {
   const [timeInterval, setTimeInterval] = useState('1m');
   const [selectedSymbol, setSelectedSymbol] = useState('BTCUSDT');
 
-  const intervalButtons = [
-    { key: '1m', label: '1m' },
-    { key: '5m', label: '5m' },
-    { key: '30m', label: '30m' },
-    { key: '1h', label: '1h' },
-  ];
+
 
 
   const symbolOptionsWithIcons = [
@@ -70,4 +65,3 @@ const TradingPage = () => {
   );
 };
 
-export default TradingPage;

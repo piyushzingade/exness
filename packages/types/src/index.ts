@@ -1,23 +1,26 @@
-export * from "./users/index";
-export * from "./candles/kline";
 export * from "./poler/index";
-export * from "./decimals/index";
+export * from "./users/user";
+export * from "./users/balance"
+export * from "./candles/kline";
+export * from "./order/close";
+export * from "./order/common";
+export * from "./order/open";
+export * from "./decimals";
 
 
+const SPREAD_CONSTANT_EX: number = 0.0015; // 0.15%
 
-export const SPREAD_CONSTANT = 0.03;
-
-export const getBuyPrice = (price: number) => {
-    return price + SPREAD_CONSTANT * price;
+export function getBuyPrice(price: number) {
+    return price + SPREAD_CONSTANT_EX * price;
 }
 
-export const getSellPrice = (price: number) => {
-    return price - SPREAD_CONSTANT * price;
+export function getSellPrice(price: number) {
+    return price - SPREAD_CONSTANT_EX * price;
 }
 
-export const getAveragePrice = (prices: {
+export function getAveragePrice(prices: {
     buy: number;
     sell: number;
-}) => {
+}) {
     return (prices.buy + prices.sell) / 2;
 }

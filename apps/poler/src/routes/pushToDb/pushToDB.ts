@@ -1,4 +1,4 @@
-import type { binanceWebSockerResponse } from "@repo/types/index";
+import type { binanceWebSockerResponse } from "@repo/types/types";
 import { pool } from "../../db";
 
 

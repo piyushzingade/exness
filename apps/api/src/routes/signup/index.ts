@@ -1,39 +1,37 @@
-import { Router } from "express";
-import { users } from "../..";
-import { type User } from "@repo/types/types";
 
+import type { Request, Response } from "express";
+import { appManager } from "../../classes/AppManager";
+import jwt from "jsonwebtoken";
 
-export const handleSignup = Router();
-
-
-handleSignup.post("/signup", (req, res) => {
-
+export const handleSignUp = (req: Request, res: Response) => {
     try {
         const { email, password } = req.body;
-
-        if (!email || !password) {
-            return res.status(400).json({ message: "Email and password are required" });
+        if (!email) {
+            return res.status(400).send({ error: "Email is required" });
+        }
+        if (!password) {
+            return res.status(400).send({ error: "Password is required" });
         }
 
-        const user = users.find(u => u.email === email);
-        if (user) {
-            return res.status(409).json({ message: "User already exists" });
+        const result = appManager.signupUser(email, password);
+
+        if (!result.success) {
+            return res.status(400).send({ error: result.error });
         }
 
-        const newUser: User = {
-            id: Bun.randomUUIDv7(),
-            email,
-            password,
-            balance: 5000
+        if (!process.env.JWT_SECRET) {
+            return res.status(500).send({ message: "JWT_SECRET not set" });
         }
 
-        users.push(newUser);
+        const token = jwt.sign({ userId: result.userId }, process.env.JWT_SECRET);
 
 
 
-        res.status(201).json({ message: "User registered successfully" });
+        return res.status(201).json({
+            userId: result.userId,
+        });
     } catch (error) {
-        console.error("Error registering user:", error);
-        res.status(403).json({ message: "My Error" });
+        console.log(error);
+        return res.status(500).send({ message: "Error while signing up" });
     }
-})
+};

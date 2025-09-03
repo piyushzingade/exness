@@ -1,10 +1,10 @@
-import { Router } from "express";
+import { Router, type Request, type Response } from "express";
 import { KlineInterval } from "@repo/types/types";
 import { Query } from "./Query";
 
 export const handleCandle = Router();
 
-handleCandle.get("/", async (req, res) => {
+export const getCandle = async (req: Request, res: Response) => {
     try {
         const symbol = req.query.symbol as string;
         const duration = req.query.duration as KlineInterval;
@@ -58,4 +58,4 @@ handleCandle.get("/", async (req, res) => {
             error: error.message
         });
     }
-});
+}

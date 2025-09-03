@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useState, useEffect } from 'react';
 
 interface HistoricalCandle {
@@ -26,15 +27,15 @@ export function useHistoricalData(symbol: string, timeInterval: string) {
         const fetchHistoricalData = async () => {
             try {
                 setLoading(true);
-                const response = await fetch(
+                const response = await axios.get(
                     `http://localhost:3001/api/v1/candles?symbol=${symbol}&duration=${timeInterval}&limit=10000`
                 );
 
-                if (!response.ok) {
+                if (!response.data) {
                     throw new Error('Failed to fetch historical data');
                 }
 
-                const json = await response.json();
+                const json = await response.data;
                 // Fixed: Use 'candle' instead of 'candles' to match API response
                 const data: HistoricalCandle[] = json.candle ?? [];
                 console.log('Raw API data:', data);
